@@ -8,6 +8,7 @@ import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -22,13 +23,13 @@ public class Turret extends SubsystemBase {
   private TalonFX lShootingMotor = new TalonFX(Constants.turretConstants.lShootingMotorID);
   private TalonFX rShootingMotor = new TalonFX(Constants.turretConstants.rShootingMotorID);
   
+   public Turret() {
+    applyTurretMotorConfigs();
+  }
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  }
-
-  public Turret() {
-    
   }
 
   public double getTurretPosition(){
@@ -52,7 +53,12 @@ public class Turret extends SubsystemBase {
     rShootingMotor.set(-0.8);
   }
 
-  private void applyTurretMototConfigs(){
+  public void rotateToPos(double position){
+    final MotionMagicTorqueCurrentFOC request =  new MotionMagicTorqueCurrentFOC(position);
+    turretMotor.setControl(request);
+  }
+
+  private void applyTurretMotorConfigs(){
     TalonFXConfiguration talonconfigs = new TalonFXConfiguration(); 
 
     FeedbackConfigs feedbackConfigs = new FeedbackConfigs();
@@ -84,7 +90,7 @@ public class Turret extends SubsystemBase {
     MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs();
     motorOutputConfigs.Inverted = InvertedValue.CounterClockwise_Positive;
     motorOutputConfigs.NeutralMode = NeutralModeValue.Brake;
-    
+
     turretMotor.getConfigurator().apply(motorOutputConfigs);
   }
 
