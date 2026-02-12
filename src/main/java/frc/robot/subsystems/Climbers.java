@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climbers extends SubsystemBase {
   /** Creates a new Climb. */
-   private TalonFX climbMotor = new TalonFX(6)
+   private TalonFX climbMotor = new TalonFX(6);
 
   public void runIntake() {
     climbMotor.set(0.);
