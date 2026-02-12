@@ -96,7 +96,7 @@ public class Turret extends SubsystemBase {
   }
 
 
-  public void rotateToVol(double velocity){
+  public void rotateToVolocity(double velocity){
     final MotionMagicTorqueCurrentFOC request =  new MotionMagicTorqueCurrentFOC(velocity);
     rShootingMotor.setControl(request);
   }
@@ -107,12 +107,7 @@ public class Turret extends SubsystemBase {
     FeedbackConfigs feedbackConfigs = new FeedbackConfigs();
     feedbackConfigs.SensorToMechanismRatio = Constants.turretConstants.SensorToMechanismRatio;
 
-    SoftwareLimitSwitchConfigs softwareLimitSwitchConfigs = new SoftwareLimitSwitchConfigs();
-    softwareLimitSwitchConfigs.ForwardSoftLimitEnable = true;
-    softwareLimitSwitchConfigs.ForwardSoftLimitThreshold = Constants.turretConstants.ForwardSoftLimitThreshold;
-    softwareLimitSwitchConfigs.ReverseSoftLimitEnable = true;
-    softwareLimitSwitchConfigs.ReverseSoftLimitThreshold = Constants.turretConstants.ReverseSoftLimitThreshold;
-
+    
     talonconfigs.Slot0.kP = Constants.turretConstants.kP;
     talonconfigs.Slot0.kI = Constants.turretConstants.kI;
     talonconfigs.Slot0.kD = Constants.turretConstants.kD;
@@ -150,11 +145,7 @@ public class Turret extends SubsystemBase {
     FeedbackConfigs feedbackConfigs = new FeedbackConfigs();
     feedbackConfigs.SensorToMechanismRatio = Constants.turretConstants.SensorToMechanismRatio;
 
-    SoftwareLimitSwitchConfigs softwareLimitSwitchConfigs = new SoftwareLimitSwitchConfigs();
-    softwareLimitSwitchConfigs.ForwardSoftLimitEnable = true;
-    softwareLimitSwitchConfigs.ForwardSoftLimitThreshold = Constants.turretConstants.ForwardSoftLimitThreshold;
-    softwareLimitSwitchConfigs.ReverseSoftLimitEnable = true;
-    softwareLimitSwitchConfigs.ReverseSoftLimitThreshold = Constants.turretConstants.ReverseSoftLimitThreshold;
+   
 
     talonconfigs.Slot0.kP = Constants.turretConstants.kP;
     talonconfigs.Slot0.kI = Constants.turretConstants.kI;
