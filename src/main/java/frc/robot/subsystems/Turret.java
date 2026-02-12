@@ -101,7 +101,7 @@ public class Turret extends SubsystemBase {
     rShootingMotor.setControl(request);
   }
 
-  private void applylShootingMotorConfigs(){
+  private void applyShootingMotorConfigs(){
     TalonFXConfiguration talonconfigs = new TalonFXConfiguration(); 
 
     FeedbackConfigs feedbackConfigs = new FeedbackConfigs();
@@ -124,12 +124,17 @@ public class Turret extends SubsystemBase {
     talonconfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
    
     lShootingMotor.getConfigurator().apply(talonconfigs);
+    rShootingMotor.getConfigurator().apply(talonconfigs);
 
-    MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs();
-    motorOutputConfigs.Inverted = InvertedValue.CounterClockwise_Positive;
-    motorOutputConfigs.NeutralMode = NeutralModeValue.Brake;
+    MotorOutputConfigs rmotorOutputConfigs = new MotorOutputConfigs();
+    rmotorOutputConfigs.Inverted = InvertedValue.CounterClockwise_Positive;
+    rmotorOutputConfigs.NeutralMode = NeutralModeValue.Brake;
 
-    lShootingMotor.getConfigurator().apply(motorOutputConfigs);
+    MotorOutputConfigs lmotorOutputConfigs = new MotorOutputConfigs();
+    lmotorOutputConfigs.Inverted = InvertedValue.Clockwise_Positive;
+    lmotorOutputConfigs.NeutralMode = NeutralModeValue.Brake;
+
+    lShootingMotor.getConfigurator().apply(rmotorOutputConfigs);
   }
 
 
@@ -138,36 +143,6 @@ public class Turret extends SubsystemBase {
     final MotionMagicTorqueCurrentFOC request =  new MotionMagicTorqueCurrentFOC(velocity);
     rShootingMotor.setControl(request);
   }
-
-  private void applyrShootingMotorConfigs(){
-    TalonFXConfiguration talonconfigs = new TalonFXConfiguration(); 
-
-    FeedbackConfigs feedbackConfigs = new FeedbackConfigs();
-    feedbackConfigs.SensorToMechanismRatio = Constants.turretConstants.SensorToMechanismRatio;
-
-   
-
-    talonconfigs.Slot0.kP = Constants.turretConstants.kP;
-    talonconfigs.Slot0.kI = Constants.turretConstants.kI;
-    talonconfigs.Slot0.kD = Constants.turretConstants.kD;
-    talonconfigs.Slot0.kV = Constants.turretConstants.kv;
-    talonconfigs.Slot0.kS = Constants.turretConstants.ks;
-    talonconfigs.Slot0.kA = Constants.turretConstants.ka;
-
-    var motionMagicConfigs = talonconfigs.MotionMagic;
-    motionMagicConfigs.MotionMagicCruiseVelocity = Constants.turretConstants.MotionMagicCruiseVelocity;
-    motionMagicConfigs.MotionMagicAcceleration = Constants.turretConstants.MotionMagicAcceleration;
-    motionMagicConfigs.MotionMagicJerk = Constants.turretConstants.MotionMagicJerk;
-
-    talonconfigs.Feedback.FeedbackRemoteSensorID = rShootingMotor.getDeviceID();
-    talonconfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
-   
-    lShootingMotor.getConfigurator().apply(talonconfigs);
-
-    MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs();
-    motorOutputConfigs.Inverted = InvertedValue.CounterClockwise_Positive;
-    motorOutputConfigs.NeutralMode = NeutralModeValue.Brake;
-
-    rShootingMotor.getConfigurator().apply(motorOutputConfigs);
-  }
 }
+
+ 
