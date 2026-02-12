@@ -96,7 +96,6 @@ public class Turret extends SubsystemBase {
     turretMotor.getConfigurator().apply(motorOutputConfigs);
   }
 
-
   public void rotateToVolocity(double velocity){
     final MotionMagicTorqueCurrentFOC request =  new MotionMagicTorqueCurrentFOC(velocity);
     rShootingMotor.setControl(request);
@@ -136,7 +135,7 @@ public class Turret extends SubsystemBase {
     lmotorOutputConfigs.NeutralMode = NeutralModeValue.Brake;
 
     lShootingMotor.getConfigurator().apply(lmotorOutputConfigs);
-    rShootingMotor.getConfigurator().apply(rmotoroutputConfigs);
+    rShootingMotor.getConfigurator().apply(rmotorOutputConfigs);
   }
 
 }
