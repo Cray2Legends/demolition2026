@@ -51,7 +51,7 @@ public class Turret extends SubsystemBase {
 
   public void shootTurret() {
     lShootingMotor.set(.8);
-    rShootingMotor.set(-0.8);
+    rShootingMotor.set(0.8);
   }
 
   public void rotateToPos(double position){
@@ -102,22 +102,18 @@ public class Turret extends SubsystemBase {
 
   private void applyShootingMotorConfigs(){
     TalonFXConfiguration talonconfigs = new TalonFXConfiguration(); 
-
-    FeedbackConfigs feedbackConfigs = new FeedbackConfigs();
-    feedbackConfigs.SensorToMechanismRatio = Constants.turretConstants.SensorToMechanismRatio;
-
     
-    talonconfigs.Slot0.kP = Constants.turretConstants.kP;
-    talonconfigs.Slot0.kI = Constants.turretConstants.kI;
-    talonconfigs.Slot0.kD = Constants.turretConstants.kD;
-    talonconfigs.Slot0.kV = Constants.turretConstants.kv;
-    talonconfigs.Slot0.kS = Constants.turretConstants.ks;
-    talonconfigs.Slot0.kA = Constants.turretConstants.ka;
+    talonconfigs.Slot0.kP = Constants.turretConstants.SkP;
+    talonconfigs.Slot0.kI = Constants.turretConstants.SkI;
+    talonconfigs.Slot0.kD = Constants.turretConstants.SkD;
+    talonconfigs.Slot0.kV = Constants.turretConstants.Skv;
+    talonconfigs.Slot0.kS = Constants.turretConstants.Sks;
+    talonconfigs.Slot0.kA = Constants.turretConstants.Ska;
 
     var motionMagicConfigs = talonconfigs.MotionMagic;
-    motionMagicConfigs.MotionMagicCruiseVelocity = Constants.turretConstants.MotionMagicCruiseVelocity;
-    motionMagicConfigs.MotionMagicAcceleration = Constants.turretConstants.MotionMagicAcceleration;
-    motionMagicConfigs.MotionMagicJerk = Constants.turretConstants.MotionMagicJerk;
+    motionMagicConfigs.MotionMagicCruiseVelocity = Constants.turretConstants.SMotionMagicCruiseVelocity;
+    motionMagicConfigs.MotionMagicAcceleration = Constants.turretConstants.SMotionMagicAcceleration;
+    motionMagicConfigs.MotionMagicJerk = Constants.turretConstants.SMotionMagicJerk;
 
     talonconfigs.Feedback.FeedbackRemoteSensorID = lShootingMotor.getDeviceID();
     talonconfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
